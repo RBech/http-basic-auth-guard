@@ -265,7 +265,7 @@ class BasicGuard implements Guard, SupportsBasicAuth
     protected function fireAttemptEvent(array $credentials, $remember, $login)
     {
         if (isset($this->events)) {
-            $this->events->fire(new Events\Attempting(
+            $this->events->dispatch(new Events\Attempting(
                 $credentials, $remember, $login
             ));
         }
@@ -315,7 +315,7 @@ class BasicGuard implements Guard, SupportsBasicAuth
     protected function fireLoginEvent($user, $remember = false)
     {
         if (isset($this->events)) {
-            $this->events->fire(new Events\Login($user, $remember));
+            $this->events->dispatch(new Events\Login($user, $remember));
         }
     }
 
@@ -372,7 +372,7 @@ class BasicGuard implements Guard, SupportsBasicAuth
         // listening for anytime a user signs out of this application manually.
 
         if (isset($this->events)) {
-            $this->events->fire(new Events\Logout($user));
+            $this->events->dispatch(new Events\Logout($user));
         }
 
         // Once we have fired the logout event we will clear the users out of memory
